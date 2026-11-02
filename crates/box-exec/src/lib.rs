@@ -10,7 +10,11 @@ mod exec;
 mod fdcount;
 mod files;
 mod middleware;
+mod program;
 mod routes;
+
+#[cfg(test)]
+mod program_tests;
 
 use std::collections::HashMap;
 use std::path::PathBuf;

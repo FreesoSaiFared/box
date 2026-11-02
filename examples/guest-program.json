@@ -1,0 +1,37 @@
+{
+  "name": "native-observed-file",
+  "journal": "receipts/native-observed-file.json",
+  "stop_on_error": true,
+  "steps": [
+    {
+      "op": "exec",
+      "id": "generate",
+      "command": [
+        "/bin/sh",
+        "-c",
+        "printf 'hello from a native guest program'"
+      ]
+    },
+    {
+      "op": "write_file",
+      "id": "write",
+      "path": "recipes/hello.txt",
+      "content_from": {
+        "from": "generate",
+        "pointer": "/stdout"
+      }
+    },
+    {
+      "op": "read_file",
+      "id": "read",
+      "path": "recipes/hello.txt"
+    },
+    {
+      "op": "assert",
+      "id": "verify",
+      "from": "read",
+      "pointer": "/content",
+      "equals": "hello from a native guest program"
+    }
+  ]
+}
